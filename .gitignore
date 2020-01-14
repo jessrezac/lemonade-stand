@@ -65,3 +65,16 @@ yarn-debug.log*
 # Ignore uploaded files in development
 /storage/*
 !/storage/.keep
+
+# Bulma Files
+
+.DS_Store
+.ruby-version
+npm-debug.log
+
+# Bulma Folders
+
+.idea/
+.sass-cache
+_gh_pages
+_site
