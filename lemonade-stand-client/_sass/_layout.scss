@@ -1,0 +1,41 @@
+@import "../node_modules/bulma/sass/utilities/initial-variables";
+@import url('https://fonts.googleapis.com/css?family=Play|Press+Start+2P&display=swap');
+
+// Set your brand colors
+$rich-black: #020202;
+$sea-blue: #05668d;
+$moonstone: #73bfb8;
+$jazzberry: #950952;
+$golden-poppy: #fec601;
+$columbia-blue: #bfe1de;
+
+// Update Bulma global variables
+$primary: $sea-blue;
+$link: $jazzberry;
+$info: $golden-poppy;
+$success: $sea-blue;
+$family-sans-serif: 'Play', sans-serif;
+$title-family: 'Press Start 2P', cursive; 
+$body-background-color: $columbia-blue;
+
+
+
+// Image customizations
+.hero {
+    &.has-background {
+        position:relative;
+        overflow:hidden;
+    }
+
+    &-background {
+        position:absolute;
+        object-fit:cover;
+        object-position:left top;
+        width:100%;
+        height:100%;
+
+        &.is-transparent {
+            opacity: 0.3;
+        }
+    }
+}
