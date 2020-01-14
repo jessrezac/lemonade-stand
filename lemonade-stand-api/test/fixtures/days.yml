@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: 1
+  cost_of_lemonade: 1
+  glasses_made: 1
+  cost_of_signs: 1
+  signs_made: 1
+  charge_per_glass: 1
+  glasses_sold: 1
+  eod_assets: 1
+  game_id: 1
+
+two:
+  number: 1
+  cost_of_lemonade: 1
+  glasses_made: 1
+  cost_of_signs: 1
+  signs_made: 1
+  charge_per_glass: 1
+  glasses_sold: 1
+  eod_assets: 1
+  game_id: 1
