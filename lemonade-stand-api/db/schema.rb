@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_14_224729) do
+ActiveRecord::Schema.define(version: 2020_01_15_015057) do
 
   create_table "days", force: :cascade do |t|
     t.integer "number"
@@ -27,8 +27,8 @@ ActiveRecord::Schema.define(version: 2020_01_14_224729) do
   end
 
   create_table "games", force: :cascade do |t|
-    t.float "current_assets"
-    t.boolean "complete"
+    t.float "current_assets", default: 2.0
+    t.boolean "complete", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

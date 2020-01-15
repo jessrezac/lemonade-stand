@@ -8,7 +8,8 @@ class GamesController < ApplicationController
   end
 
   def create
-    game = Game.create()
-    render json: SightingSerializer.new(game)
+    game = Game.create
+    render json: 
   end
+
 end
