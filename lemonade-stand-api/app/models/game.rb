@@ -1,11 +1,11 @@
 class Game < ApplicationRecord
-    has_many :days, :dependent => :destroy_all
+    has_many :days, :dependent => :delete_all
 
     after_initialize :init_day_one
 
     def init_day_one
         if new_record?
-            self.days.create({number: 1})
+            self.days.build({number: 1})
         end
     end
     
