@@ -1,7 +1,10 @@
 class Api::V1::GamesController < ApplicationController
   def index
     games = Game.all
-    render json: GameSerializer.new(games).serialized_json
+    options = {
+      include: [:days]
+    }
+    render json: GameSerializer.new(games, options).serialized_json
   end
 
   def new
@@ -9,7 +12,10 @@ class Api::V1::GamesController < ApplicationController
 
   def create
     game = Game.create
-    render json: GameSerializer.new(game)
+    options = {
+      include: [:days]
+    }
+    render json: GameSerializer.new(game, options)
   end
 
 end
