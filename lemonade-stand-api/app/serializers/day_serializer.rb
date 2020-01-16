@@ -1,4 +1,4 @@
 class DaySerializer
   include FastJsonapi::ObjectSerializer
-  attributes 
+  attributes :number, :eod_assets
 end
