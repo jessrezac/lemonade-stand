@@ -4,5 +4,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function newGame() {
   let game1 = new Game();
-  Game.screenOne();
+  game1.screenOne;
 }

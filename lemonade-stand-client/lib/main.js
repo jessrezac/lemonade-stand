@@ -6,5 +6,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function newGame() {
   var game1 = new Game();
-  Game.screenOne();
+  game1.screenOne;
 }
