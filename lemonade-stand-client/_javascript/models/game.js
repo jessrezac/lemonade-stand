@@ -43,8 +43,23 @@ class Game {
         document.addEventListener("keyup", e => {
             if (e.keyCode == 32) {
                 let day = new Day;
+                this.renderStandAndWeather(day)
             }
         });
+    }
+
+    renderStandAndWeather(day) {
+        this.gameBoard.innerHTML = `<p class="title is-3 is-spaced has-text-centered">
+                Lemonsville Weather Report
+            </p>
+            <p class="title is-3 has-text-centered">
+                ${day.renderWeather}
+            </p>
+            <img src="images/lemonadestand.png" alt="lemonade stand graphic with two glasses and a pitcher of lemonade">`;
+    }
+
+    renderForm(day) {
+
     }
 
 

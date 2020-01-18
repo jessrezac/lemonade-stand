@@ -1,56 +1,56 @@
 class Api {
-  constructor() {
-    this.baseURL = "http://localhost:3000";
-  }
+    constructor() {
+        this.baseURL = "http://localhost:3000";
+    }
 
-  static submitNewGame(formData) {
-    event.preventDefault();
+    static submitNewGame(formData) {
+        event.preventDefault();
 
-    let configObj = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      body: JSON.stringify(formData)
-    };
+        let configObj = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+        },
+        body: JSON.stringify(formData)
+        };
 
-    fetch(Api.baseUrl + "/api/v1/games", configObj)
-      .then(resp => resp.json())
-      .then(data => console.log(data));
-  }
+        fetch(Api.baseUrl + "/api/v1/games", configObj)
+        .then(resp => resp.json())
+        .then(data => console.log(data));
+    }
 
-  static submitNewDay(formData) {
-    event.preventDefault();
+    static submitNewDay(formData) {
+        event.preventDefault();
 
-    let configObj = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      body: JSON.stringify(formData)
-    };
+        let configObj = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+        },
+        body: JSON.stringify(formData)
+        };
 
-    fetch(Api.baseUrl + "/api/v1/games", configObj)
-      .then(resp => resp.json())
-      .then(data => console.log(data));
-  }
+        fetch(Api.baseUrl + "/api/v1/games", configObj)
+        .then(resp => resp.json())
+        .then(data => console.log(data));
+    }
 
-  static deleteGame(formData) {
-    event.preventDefault();
+    static deleteGame(formData) {
+        event.preventDefault();
 
-    let configObj = {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      body: JSON.stringify(formData)
-    };
+        let configObj = {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+        },
+        body: JSON.stringify(formData)
+        };
 
-    fetch(Api.baseUrl + "/api/v1/games", configObj)
-      .then(resp => resp.json())
-      .then(data => console.log(data));
-  }
+        fetch(Api.baseUrl + "/api/v1/games", configObj)
+        .then(resp => resp.json())
+        .then(data => console.log(data));
+    }
 }
