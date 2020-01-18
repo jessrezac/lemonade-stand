@@ -13,13 +13,28 @@ var Game = function () {
     }
 
     _createClass(Game, [{
-        key: "renderStandAndWeather",
-        value: function renderStandAndWeather(day) {
-            this.gameBoard.innerHTML = "<p class=\"title is-3 is-spaced has-text-centered\">\n                Lemonsville Weather Report\n            </p>\n            <p class=\"title is-3 has-text-centered\">\n                " + day.renderWeather + "\n            </p>\n            <img src=\"images/lemonadestand.png\" alt=\"lemonade stand graphic with two glasses and a pitcher of lemonade\">";
+        key: "playDay",
+        value: function playDay() {
+            var game = this;
+
+            setTimeout(function () {
+                game.renderForm(game.day);
+            }, 3000);
+
+            this.gameBoard.innerHTML = "<p class=\"title is-3 is-spaced has-text-centered\">\n                Lemonsville Weather Report\n            </p>\n            <p class=\"title is-3 has-text-centered\">\n                " + this.day.renderWeather + "\n            </p>\n            <img src=\"images/lemonadestand.png\" alt=\"lemonade stand graphic with two glasses and a pitcher of lemonade\">";
         }
     }, {
         key: "renderForm",
-        value: function renderForm(day) {}
+        value: function renderForm() {
+            this.gameBoard.innerHTML = this.day.renderDay;
+            document.getElementById("submit-day-btn").addEventListener("click", this.submitDay);
+        }
+    }, {
+        key: "submitDay",
+        value: function submitDay(e) {
+            e.preventDefault();
+            console.log(e);
+        }
     }, {
         key: "addExitListener",
         value: function addExitListener() {
@@ -39,8 +54,8 @@ var Game = function () {
 
             document.addEventListener("keyup", function (e) {
                 if (e.keyCode == 32) {
-                    var day = new Day();
-                    _this.renderStandAndWeather(day);
+                    _this.day = new Day();
+                    _this.playDay();
                 }
             });
         }

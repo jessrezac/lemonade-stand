@@ -42,26 +42,37 @@ class Game {
             
         document.addEventListener("keyup", e => {
             if (e.keyCode == 32) {
-                let day = new Day;
-                this.renderStandAndWeather(day)
+                this.day = new Day;
+                this.playDay()
             }
         });
     }
 
-    renderStandAndWeather(day) {
+    playDay() {
+        let game = this
+
+        setTimeout(function() {
+            game.renderForm(game.day);
+        }, 3000)
+        
         this.gameBoard.innerHTML = `<p class="title is-3 is-spaced has-text-centered">
                 Lemonsville Weather Report
             </p>
             <p class="title is-3 has-text-centered">
-                ${day.renderWeather}
+                ${this.day.renderWeather}
             </p>
-            <img src="images/lemonadestand.png" alt="lemonade stand graphic with two glasses and a pitcher of lemonade">`;
+            <img src="images/lemonadestand.png" alt="lemonade stand graphic with two glasses and a pitcher of lemonade">`            
     }
 
-    renderForm(day) {
-
+    renderForm() {
+        this.gameBoard.innerHTML = this.day.renderDay
+        document.getElementById("submit-day-btn").addEventListener("click", this.submitDay)  
     }
 
+    submitDay(e) {
+        e.preventDefault();
+        console.log(e)
+    }
 
     addExitListener() {
         document.addEventListener("keyup", e => {
