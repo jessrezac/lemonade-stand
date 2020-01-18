@@ -43,29 +43,31 @@ class Day {
 
     get renderDay() {
 
-        return `<p class="title is-2">On Day ${this.number}, the cost of lemonade is $0.0${this.costOfLemonade}.</p>
+        return `<p class="title is-2">On Day ${
+          this.number
+        }, the cost of lemonade is $0.0${this.costOfLemonade}.</p>
         <p class="subtitle is-4">Assets $${this.assets.toFixed(2)}</p>
         
-        <form class="form" id="submit-day-values">
+        <form class="form" id="dayForm">
             <div class="field">
                 <label for="glasses" class="label">How many glasses of lemonade do you wish to make?</label>
                 <div class="control">
-                    <input class="input" type="number" placeholder="Number of Glasses" id="glasses">
+                    <input class="input" type="number" placeholder="Number of Glasses" name="glasses">
                 </div>
             </div>
             <div class="field">
                 <label for="signs" class="label">How many advertising signs (15 cents each) do you want to make?</label>
                 <div class="control">
-                    <input class="input" type="number" placeholder="Number of Signs" id="signs">
+                    <input class="input" type="number" placeholder="Number of Signs" name="signs">
                 </div>
             </div>
             <div class="field">
                 <label for="charge" class="label">What price (in cents) do you wish to charge for lemonade?</label>
                 <div class="control">
-                    <input class="input" type="number" placeholder="Charge for Lemonade" id="charge">
+                    <input class="input" type="number" placeholder="Charge for Lemonade" name="charge">
                 </div>
             </div>
-            <button id="submit-day-btn" class="button is-primary is-large">Enter</button>
+            <input id="submit-day-btn" class="button is-primary is-large" type="submit" value="Submit">
         </form>`;
     }
 }

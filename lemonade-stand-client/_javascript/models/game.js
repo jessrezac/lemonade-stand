@@ -1,6 +1,7 @@
 class Game {
     constructor(){
         this.gameBoard = document.getElementById("GameBoard");
+        this.gameId = null
         this.addExitListener()
     } 
 
@@ -51,6 +52,7 @@ class Game {
     playDay() {
         let game = this
 
+        //TODO: Talk to Michael about conventions around this.
         setTimeout(function() {
             game.renderForm(game.day);
         }, 3000)
@@ -66,12 +68,34 @@ class Game {
 
     renderForm() {
         this.gameBoard.innerHTML = this.day.renderDay
-        document.getElementById("submit-day-btn").addEventListener("click", this.submitDay)  
+        let dayForm = document.getElementById("dayForm")
+        dayForm.addEventListener("submit", e => {
+            event.preventDefault();
+            this.submitDay(e.target);
+        });  
     }
 
-    submitDay(e) {
-        e.preventDefault();
-        console.log(e)
+    submitDay(dayData) {
+        let formData = {
+            "game": { 
+                "game_id": this.game_id
+            },
+            "day": {
+                "number": this.day.number,
+                "cost_of_lemonade": this.day.costOfLemonade,
+                "glasses_made": dayData.glasses.value, // form
+                "cost_of_signs": this.day.costOfSigns,
+                "signs_made": dayData.signs.value, // form
+                "charge_per_glass": dayData.charge.value, //form
+                "weather": this.day.weather
+            }
+        };
+        if (!formData.game.game_id) {
+            Api.submitNewGame(formData)
+        } else {
+            Api.submitNewDay(formData)
+        }
+        
     }
 
     addExitListener() {
