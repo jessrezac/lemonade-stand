@@ -1,10 +1,10 @@
 class Api {
-    constructor() {
-        this.baseURL = "http://localhost:3000";
+    static baseUrl() {
+        return "http://localhost:3000/api/v1";
     }
-
+    
     static submitNewGame(formData) {
-        event.preventDefault();
+        console.log(`Submitting new game from ${Api.baseUrl()}`);
 
         let configObj = {
         method: "POST",
@@ -15,13 +15,13 @@ class Api {
         body: JSON.stringify(formData)
         };
 
-        fetch(Api.baseUrl + "/api/v1/games", configObj)
+        fetch(Api.baseUrl() + "/games", configObj)
         .then(resp => resp.json())
         .then(data => console.log(data));
     }
 
     static submitNewDay(formData) {
-        event.preventDefault();
+        console.log(`Submitting new day from ${Api.baseUrl()}`);
 
         let configObj = {
         method: "POST",
@@ -32,9 +32,9 @@ class Api {
         body: JSON.stringify(formData)
         };
 
-        fetch(Api.baseUrl + "/api/v1/games", configObj)
-        .then(resp => resp.json())
-        .then(data => console.log(data));
+        fetch(Api.baseUrl() + "/games", configObj)
+            .then(resp => resp.json())
+            .then(data => console.log(data));
     }
 
     static deleteGame(formData) {
@@ -49,8 +49,8 @@ class Api {
         body: JSON.stringify(formData)
         };
 
-        fetch(Api.baseUrl + "/api/v1/games", configObj)
-        .then(resp => resp.json())
-        .then(data => console.log(data));
+        fetch(Api.baseUrl() + "/games", configObj)
+            .then(resp => resp.json())
+            .then(data => console.log(data));
     }
 }

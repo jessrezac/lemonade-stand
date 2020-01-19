@@ -7,14 +7,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var Api = function () {
     function Api() {
         _classCallCheck(this, Api);
-
-        this.baseURL = "http://localhost:3000";
     }
 
     _createClass(Api, null, [{
+        key: "baseUrl",
+        value: function baseUrl() {
+            return "http://localhost:3000/api/v1";
+        }
+    }, {
         key: "submitNewGame",
         value: function submitNewGame(formData) {
-            event.preventDefault();
+            console.log("Submitting new game from " + Api.baseUrl());
 
             var configObj = {
                 method: "POST",
@@ -25,7 +28,7 @@ var Api = function () {
                 body: JSON.stringify(formData)
             };
 
-            fetch(Api.baseUrl + "/api/v1/games", configObj).then(function (resp) {
+            fetch(Api.baseUrl() + "/games", configObj).then(function (resp) {
                 return resp.json();
             }).then(function (data) {
                 return console.log(data);
@@ -34,7 +37,7 @@ var Api = function () {
     }, {
         key: "submitNewDay",
         value: function submitNewDay(formData) {
-            event.preventDefault();
+            console.log("Submitting new day from " + Api.baseUrl());
 
             var configObj = {
                 method: "POST",
@@ -45,7 +48,7 @@ var Api = function () {
                 body: JSON.stringify(formData)
             };
 
-            fetch(Api.baseUrl + "/api/v1/games", configObj).then(function (resp) {
+            fetch(Api.baseUrl() + "/games", configObj).then(function (resp) {
                 return resp.json();
             }).then(function (data) {
                 return console.log(data);
@@ -65,7 +68,7 @@ var Api = function () {
                 body: JSON.stringify(formData)
             };
 
-            fetch(Api.baseUrl + "/api/v1/games", configObj).then(function (resp) {
+            fetch(Api.baseUrl() + "/games", configObj).then(function (resp) {
                 return resp.json();
             }).then(function (data) {
                 return console.log(data);
