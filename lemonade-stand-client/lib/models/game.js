@@ -42,9 +42,9 @@ var Game = function () {
         value: function submitDay(dayData) {
             var formData = {
                 "game": {
-                    "game_id": this.gameId
+                    "id": this.gameId
                 },
-                "day": {
+                "days_attributes": {
                     "number": this.day.number,
                     "cost_of_lemonade": this.day.costOfLemonade,
                     "glasses_made": dayData.glasses.value, // form
@@ -55,7 +55,7 @@ var Game = function () {
                 }
             };
             console.log(formData);
-            if (formData.day.number === 1) {
+            if (formData.days_attributes.number === 1) {
                 Api.submitNewGame(formData);
             } else {
                 Api.submitNewDay(formData);

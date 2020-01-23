@@ -78,9 +78,9 @@ class Game {
     submitDay(dayData) {
         let formData = {
             "game": { 
-                "game_id": this.gameId
+                "id": this.gameId
             },
-            "day": {
+            "days_attributes": {
                 "number": this.day.number,
                 "cost_of_lemonade": this.day.costOfLemonade,
                 "glasses_made": dayData.glasses.value, // form
@@ -91,7 +91,7 @@ class Game {
             }
         };
         console.log(formData)
-        if (formData.day.number === 1) {
+        if (formData.days_attributes.number === 1) {
             Api.submitNewGame(formData)
         } else {
             Api.submitNewDay(formData)
