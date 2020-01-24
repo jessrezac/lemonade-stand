@@ -4,12 +4,8 @@ class Day < ApplicationRecord
 
     after_save :play_game
 
-    private
-
-    def play_game
-
+    def calculate_glasses_sold
         # customer volume is determined by r * (n + (n * v)), then that amount is rounded
-
         # set charge_multiplier (n)
         if self.charge_per_glass <= 10 
             # if charge < 10 then 1200 N1 = (10 - profits) / 10 * .8 * 30 + 30
@@ -44,16 +40,22 @@ class Day < ApplicationRecord
         else
             self.glasses_sold = customers
         end
+    end
 
+    def calculate_profits
         expenses = (self.cost_of_lemonade * self.glasses_made) + (self.cost_of_signs * self.signs_made)
         income = self.glasses_sold * self.charge_per_glass
         self.profits = ((income - expenses) * 0.01).round(2)
-
-        self.game.current_assets += self.profits
-
-        return glasses_sold
-
     end
+
+    private
+
+    def play_game
+        self.calculate_glasses_sold
+        self.calculate_profits
+        self.game.current_assets += self.profits
+    end
+
 
 
 
