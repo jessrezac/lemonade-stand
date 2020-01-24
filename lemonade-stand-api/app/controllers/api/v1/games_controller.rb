@@ -12,7 +12,7 @@ class Api::V1::GamesController < ApplicationController
 
   def create
     game = Game.create(game_params)
-    game.days.build(day_params)
+    game.days.create(day_params)
     options = {
       include: [:days]
     }

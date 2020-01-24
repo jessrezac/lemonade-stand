@@ -1,28 +1,27 @@
-require 'Math'
-
 class Day < ApplicationRecord
     belongs_to :game
     enum weather: [ :thunderstorms, :cloudy, :sunny, :hot_and_sunny ]
 
-    after_create :play_game
+    # after_create :play_game
 
-    private
+    
 
     def play_game
 
-        # customer volume is determined by r * (n + (n * v))
+        # customer volume is determined by r * (n + (n * v)), then that amount is rounded
 
         # set n
         if self.charge_per_glass <= 10 
             # if charge < 10 then 1200 N1 = (10 - profits) / 10 * .8 * 30 + 30
-            n = (10 - self.charge_per_glass) / 10 * .8 * 30 + 30
+            n = (10 - self.charge_per_glass) / 10 * 0.8 * 30 + 30
         else
             # else n1 = (10 ^ 2) * 30 / profits ^ 2)
             n = (10**2) * 30 / self.charge_per_glass**2
         end
 
         # set v
-        v = 1 - (Math.log((self.signs_made * -1) * .5) * 1)   # v = 1 - (exp(w) * 1)  // EXP is inverse natural log of the argument
+        w = self.signs_made * 0.5
+        v = 1 - Math.log(w)   # v = 1 - (exp(w) * 1)  // EXP is inverse natural log of the argument
 
         # set chance of rain and r
         case self.weather
