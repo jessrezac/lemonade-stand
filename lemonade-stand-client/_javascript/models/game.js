@@ -102,7 +102,8 @@ class Game {
         this.gameId = results.data.id
         let attributes = results.data.attributes
         this.currentAssets = attributes.current_assets
-        let dayAttributes = results.included[results.included.length - 1].attributes
+        let days = results.data.attributes.days
+        let dayAttributes = days[days.length - 1]
         this.day.glassesMade = dayAttributes.glasses_made
         this.day.chargePerGlass = dayAttributes.charge_per_glass
         this.day.signsMade = dayAttributes.signs_made

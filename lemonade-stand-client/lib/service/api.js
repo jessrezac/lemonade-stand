@@ -50,7 +50,7 @@ var Api = function () {
             fetch(Api.baseUrl() + ("/games/" + game.gameId), configObj).then(function (resp) {
                 return resp.json();
             }).then(function (data) {
-                return console.log(data);
+                return game.applyResults(data);
             });
         }
     }, {

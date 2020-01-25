@@ -33,7 +33,7 @@ class Api {
 
         fetch(Api.baseUrl() + `/games/${game.gameId}`, configObj)
             .then(resp => resp.json())
-            .then(data => console.log(data));
+            .then(data => game.applyResults(data));
     }
 
     static deleteGame(formData) {
