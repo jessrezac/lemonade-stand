@@ -1,4 +1,5 @@
 class Game {
+
     constructor(){
         this.gameBoard = document.getElementById("GameBoard");
         this.gameId = null
@@ -52,7 +53,6 @@ class Game {
     playDay() {
         let game = this
 
-        //TODO: Talk to Michael about conventions around this.
         setTimeout(function() {
             game.renderForm(game.day);
         }, 3000)
@@ -90,13 +90,77 @@ class Game {
                 "weather": this.day.weather
             }
         };
-        console.log(formData)
         if (formData.days_attributes.number === 1) {
-            Api.submitNewGame(formData)
+            Api.submitNewGame(formData, this)
         } else {
             Api.submitNewDay(formData)
         }
         
+    }
+
+    applyResults(results) {
+        this.gameId = results.data.id
+        let attributes = results.data.attributes
+        this.currentAssets = attributes.current_assets
+        let dayAttributes = results.included[results.included.length - 1].attributes
+        this.day.glassesMade = dayAttributes.glasses_made
+        this.day.chargePerGlass = dayAttributes.charge_per_glass
+        this.day.signsMade = dayAttributes.signs_made
+        this.day.glassesSold = dayAttributes.glasses_sold
+        this.day.profits = dayAttributes.profits
+
+        this.renderResults()
+    }
+
+    renderResults() {
+            this.gameBoard.innerHTML = `<img src="images/favicon/android-chrome-192x192.png" alt="lemon emoji"><br><br>
+            <p class="title is-2">
+                Day ${this.day.number}
+            </p>
+            
+            <p class="subtitle is-4">
+                ${this.day.glassesSold} glasses sold    
+            </p>
+            
+            <p class="subtitle is-4">
+                $0.${this.day.chargePerGlass} per glass    
+            </p>
+            
+            <p class="subtitle is-4 has-text-right">
+                Income $${(this.day.glassesSold * this.day.chargePerGlass)*.01}    
+            </p>
+            
+            <p class="subtitle is-4">
+                ${this.day.glassesMade} glasses made    
+            </p>
+            
+            <p class="subtitle is-4">
+                ${this.day.signsMade} signs made    
+            </p>
+            
+            <p class="subtitle is-4 has-text-right">
+                Expenses $.${this.day.glassesMade * this.day.costOfLemonade +
+                  this.day.signsMade * this.day.costOfSigns}  
+            </p>
+            
+            <p class="subtitle is-4 has-text-centered">
+                Profit $${this.day.profits}    
+            </p>
+            
+            <p class="subtitle is-4 has-text-centered">
+                Assets $${this.currentAssets}    
+            </p>
+            
+            <p class="subtitle is-4">
+                Press space to continue, esc to end...
+            </p>`;
+
+            document.addEventListener("keyup", e => {
+                if (e.keyCode == 32) {
+                this.day = new Day(this.currentAssets, ++this.day.number);
+                this.playDay();
+                }
+            });
     }
 
     addExitListener() {

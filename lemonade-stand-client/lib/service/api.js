@@ -16,9 +16,8 @@ var Api = function () {
         }
     }, {
         key: "submitNewGame",
-        value: function submitNewGame(formData) {
+        value: function submitNewGame(formData, game) {
             console.log("Submitting new game from " + Api.baseUrl());
-
             var configObj = {
                 method: "POST",
                 headers: {
@@ -31,7 +30,7 @@ var Api = function () {
             fetch(Api.baseUrl() + "/games", configObj).then(function (resp) {
                 return resp.json();
             }).then(function (data) {
-                return console.log(data);
+                return game.applyResults(data);
             });
         }
     }, {

@@ -43,9 +43,7 @@ class Day {
 
     get renderDay() {
 
-        return `<p class="title is-2">On Day ${
-          this.number
-        }, the cost of lemonade is $0.0${this.costOfLemonade}.</p>
+        return `<p class="title is-2">On Day ${this.number}, the cost of lemonade is $0.0${this.costOfLemonade}.</p>
         <p class="subtitle is-4">Assets $${this.assets.toFixed(2)}</p>
         
         <form class="form" id="dayForm">
@@ -70,4 +68,5 @@ class Day {
             <input id="submit-day-btn" class="button is-primary is-large" type="submit" value="Submit">
         </form>`;
     }
+    
 }

@@ -25,7 +25,7 @@ class Day < ApplicationRecord
             # J = 30 + INT (RND(1) * 5) * 10 // that's the chance of rain
             # if it is rainy, R1 becomes 1 - J / 100
 
-            chance_of_rain = 30 + (Math.random(1) * 5).floor * 10
+            chance_of_rain = 30 + (rand(1) * 5).floor * 10
             random_event_multiplier = 1 - chance_of_rain/100
         when "hot and sunny"
             random_event_multiplier = 2

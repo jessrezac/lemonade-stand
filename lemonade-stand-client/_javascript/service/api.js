@@ -3,9 +3,8 @@ class Api {
         return "http://localhost:3000/api/v1";
     }
     
-    static submitNewGame(formData) {
+    static submitNewGame(formData, game) {
         console.log(`Submitting new game from ${Api.baseUrl()}`);
-
         let configObj = {
         method: "POST",
         headers: {
@@ -17,7 +16,7 @@ class Api {
 
         fetch(Api.baseUrl() + "/games", configObj)
         .then(resp => resp.json())
-        .then(data => console.log(data));
+        .then(data => game.applyResults(data));
     }
 
     static submitNewDay(formData) {
