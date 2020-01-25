@@ -55,19 +55,18 @@ var Api = function () {
         }
     }, {
         key: "deleteGame",
-        value: function deleteGame(formData) {
+        value: function deleteGame(gameId) {
             event.preventDefault();
+            console.log(gameId);
 
             var configObj = {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
                     Accept: "application/json"
-                },
-                body: JSON.stringify(formData)
-            };
+                } };
 
-            fetch(Api.baseUrl() + "/games", configObj).then(function (resp) {
+            fetch(Api.baseUrl() + ("/games/" + gameId), configObj).then(function (resp) {
                 return resp.json();
             }).then(function (data) {
                 return console.log(data);

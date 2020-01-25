@@ -168,7 +168,23 @@ class Game {
         document.addEventListener("keyup", e => {
             if (e.keyCode == 27) {
                 // TODO: Create game exit
-                console.log("you quit!")
+                let modal = document.getElementById("alert")
+                modal.classList.add("is-active");
+                document.addEventListener("click", e => {
+                    modal.classList.remove("is-active")
+                })
+                document.addEventListener("keyup", e => {
+                    if (e.keyCode == 13) {
+                        if (this.gameId) {
+                            Api.deleteGame(this.gameId);
+                        } else {
+                            window.location.reload()
+                        }
+                    } else if (e.keyCode == 32) {
+                        modal.classList.remove("is-active")
+                    }
+                })
+
             }
         })
     }
