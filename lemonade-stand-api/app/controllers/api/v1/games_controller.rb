@@ -1,5 +1,5 @@
 class Api::V1::GamesController < ApplicationController
-  before_action :set_game, only: [:update, :delete]
+  before_action :set_game, only: [:update, :destroy]
   
   def index
     games = Game.all
@@ -15,6 +15,11 @@ class Api::V1::GamesController < ApplicationController
   def update
     @game.days.create(day_params)
     render json: GameSerializer.new(@game)
+  end
+
+  def destroy
+    @game.destroy
+    render json: {"message": "Game deleted successfully"}
   end
 
   private

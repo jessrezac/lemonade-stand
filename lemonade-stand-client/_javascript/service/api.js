@@ -37,18 +37,16 @@ class Api {
     }
 
     static deleteGame(gameId) {
-        event.preventDefault();
-        console.log(gameId)
-
         let configObj = {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json"
-        }};
+        },
+        body: JSON.stringify({})};
 
         fetch(Api.baseUrl() + `/games/${gameId}`, configObj)
             .then(resp => resp.json())
-            .then(data => console.log(data));
+            .then(data => {window.location.reload() });
     }
 }
