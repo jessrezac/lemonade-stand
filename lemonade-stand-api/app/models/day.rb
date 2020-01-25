@@ -2,7 +2,7 @@ class Day < ApplicationRecord
     belongs_to :game
     enum weather: [ :thunderstorms, :cloudy, :sunny, :hot_and_sunny ]
 
-    after_save :play_game
+    after_create :play_game
 
     def calculate_glasses_sold
         # customer volume is determined by r * (n + (n * v)), then that amount is rounded
@@ -53,7 +53,9 @@ class Day < ApplicationRecord
     def play_game
         self.calculate_glasses_sold
         self.calculate_profits
+        self.save
         self.game.current_assets += self.profits
+        self.game.save
     end
 
 
