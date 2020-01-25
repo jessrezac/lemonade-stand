@@ -35,11 +35,11 @@ var Api = function () {
         }
     }, {
         key: "submitNewDay",
-        value: function submitNewDay(formData) {
+        value: function submitNewDay(formData, game) {
             console.log("Submitting new day from " + Api.baseUrl());
 
             var configObj = {
-                method: "POST",
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
                     Accept: "application/json"
@@ -47,7 +47,7 @@ var Api = function () {
                 body: JSON.stringify(formData)
             };
 
-            fetch(Api.baseUrl() + "/games", configObj).then(function (resp) {
+            fetch(Api.baseUrl() + ("/games/" + game.gameId), configObj).then(function (resp) {
                 return resp.json();
             }).then(function (data) {
                 return console.log(data);

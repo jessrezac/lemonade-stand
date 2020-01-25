@@ -19,11 +19,11 @@ class Api {
         .then(data => game.applyResults(data));
     }
 
-    static submitNewDay(formData) {
+    static submitNewDay(formData, game) {
         console.log(`Submitting new day from ${Api.baseUrl()}`);
 
         let configObj = {
-        method: "POST",
+        method: "PATCH",
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json"
@@ -31,7 +31,7 @@ class Api {
         body: JSON.stringify(formData)
         };
 
-        fetch(Api.baseUrl() + "/games", configObj)
+        fetch(Api.baseUrl() + `/games/${game.gameId}`, configObj)
             .then(resp => resp.json())
             .then(data => console.log(data));
     }

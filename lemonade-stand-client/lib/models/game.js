@@ -56,7 +56,7 @@ var Game = function () {
             if (formData.days_attributes.number === 1) {
                 Api.submitNewGame(formData, this);
             } else {
-                Api.submitNewDay(formData);
+                Api.submitNewDay(formData, this);
             }
         }
     }, {
