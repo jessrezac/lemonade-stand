@@ -12,16 +12,30 @@ class Game {
                 To manage your lemonade stand, you will need to make these decisions every day:
             </p>
             
-            <p><ol class="subtitle is-4">
+            <div class="content"><ol class="subtitle is-4">
                 <li>How many glasses of lemonade to make (only one batch is made in the morning)</li>
                 <li>How many advertising signs to make (the signs cost fifteen cents each)</li>
                 <li>What price to charge for each glass</li>
-            </ol></p>
+            </ol></div>
 
             <p class="subtitle is-4">
                 You will begin with $2.00 cash (assets). Because your mother gave you some sugar, your cost to make lemonade is two cents a glass. This may change in the future.
             </p>
+            
+            <p class="subtitle is-4">
+                Press space to continue, esc to end...
+            </p>`
 
+            document.addEventListener("keyup", e => {
+                if (e.keyCode == 32) {
+                    this.renderMoreInstructions
+                }
+            });
+
+    }
+
+    get renderMoreInstructions() {
+        this.gameBoard.innerHTML = `<img src="images/favicon/android-chrome-192x192.png" alt="lemon emoji"><br><br>
             <p class="subtitle is-4">
                 Your expenses are the sum of the cost of the lemonade and the cost of the signs.
             </p>
@@ -54,7 +68,7 @@ class Game {
         let game = this
 
         setTimeout(function() {
-            game.renderForm(game.day);
+            game.renderForm();
         }, 3000)
         
         this.gameBoard.innerHTML = `<p class="title is-3 is-spaced has-text-centered">
@@ -63,7 +77,9 @@ class Game {
             <p class="title is-3 has-text-centered">
                 ${this.day.renderWeather}
             </p>
-            <img src="images/lemonadestand.png" alt="lemonade stand graphic with two glasses and a pitcher of lemonade">`            
+            <figure class="image is-5by4">
+                <img src="images/lemonadestand.png" class="is-max-height-60" alt="lemonade stand graphic with two glasses and a pitcher of lemonade">            
+            </figure>`;
     }
 
     renderForm() {

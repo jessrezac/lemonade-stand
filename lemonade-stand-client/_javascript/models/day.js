@@ -48,21 +48,21 @@ class Day {
         
         <form class="form" id="dayForm">
             <div class="field">
-                <label for="glasses" class="label">How many glasses of lemonade do you wish to make?</label>
+                <label for="glasses" class="label is-large">How many glasses of lemonade do you wish to make?</label>
                 <div class="control">
-                    <input class="input" type="number" placeholder="Number of Glasses" name="glasses">
+                    <input class="input is-large" type="number" placeholder="Number of Glasses" name="glasses">
                 </div>
             </div>
             <div class="field">
-                <label for="signs" class="label">How many advertising signs (15 cents each) do you want to make?</label>
+                <label for="signs" class="label is-large">How many advertising signs (15 cents each) do you want to make?</label>
                 <div class="control">
-                    <input class="input" type="number" placeholder="Number of Signs" name="signs">
+                    <input class="input is-large" type="number" placeholder="Number of Signs" name="signs">
                 </div>
             </div>
             <div class="field">
-                <label for="charge" class="label">What price (in cents) do you wish to charge for lemonade?</label>
+                <label for="charge" class="label is-large">What price (in cents) do you wish to charge for lemonade?</label>
                 <div class="control">
-                    <input class="input" type="number" placeholder="Charge for Lemonade" name="charge">
+                    <input class="input is-large" type="number" placeholder="Charge for Lemonade" name="charge">
                 </div>
             </div>
             <input id="submit-day-btn" class="button is-primary is-large" type="submit" value="Submit">
