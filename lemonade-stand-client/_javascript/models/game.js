@@ -58,8 +58,10 @@ class Game {
             
         document.addEventListener("keyup", e => {
             if (e.keyCode == 32) {
-                this.day = new Day;
-                this.playDay()
+                if (!this.day) {
+                    this.day = new Day;
+                    this.playDay()
+                }
             }
         });
     }
@@ -109,7 +111,7 @@ class Game {
             invalidations++
         }
         
-        if ((dayData.glasses.value * this.day.costOfLemonade) > this.currentAssets) {
+        if ((dayData.glasses.value * this.day.costOfLemonade * 0.01) > this.currentAssets) {
             glassesHelp.innerText = "Think again! You don't have enough cash"
             invalidations++;
         }
@@ -120,7 +122,7 @@ class Game {
             invalidations++;
         }
         
-        if (((dayData.signs.value * this.day.costOfSigns) + (dayData.glasses.value + this.day.costOfLemonade)) > this.currentAssets) {
+        if (((dayData.signs.value * this.day.costOfSigns * 0.01) + (dayData.glasses.value + this.day.costOfLemonade * 0.01)) > this.currentAssets) {
             signsHelp.innerText = `Think again! You don't have enough cash.`
             invalidations++;}
 

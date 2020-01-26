@@ -56,7 +56,7 @@ var Game = function () {
                 invalidations++;
             }
 
-            if (dayData.glasses.value * this.day.costOfLemonade > this.currentAssets) {
+            if (dayData.glasses.value * this.day.costOfLemonade * 0.01 > this.currentAssets) {
                 glassesHelp.innerText = "Think again! You don't have enough cash";
                 invalidations++;
             }
@@ -66,7 +66,7 @@ var Game = function () {
                 invalidations++;
             }
 
-            if (dayData.signs.value * this.day.costOfSigns + (dayData.glasses.value + this.day.costOfLemonade) > this.currentAssets) {
+            if (dayData.signs.value * this.day.costOfSigns * 0.01 + (dayData.glasses.value + this.day.costOfLemonade * 0.01) > this.currentAssets) {
                 signsHelp.innerText = "Think again! You don't have enough cash.";
                 invalidations++;
             }
@@ -182,8 +182,10 @@ var Game = function () {
 
             document.addEventListener("keyup", function (e) {
                 if (e.keyCode == 32) {
-                    _this5.day = new Day();
-                    _this5.playDay();
+                    if (!_this5.day) {
+                        _this5.day = new Day();
+                        _this5.playDay();
+                    }
                 }
             });
         }
