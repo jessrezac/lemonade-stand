@@ -33,8 +33,52 @@ var Game = function () {
             var dayForm = document.getElementById("dayForm");
             dayForm.addEventListener("submit", function (e) {
                 event.preventDefault();
-                _this.submitDay(e.target);
+                if (_this.validateForm(e.target)) {
+                    _this.submitDay(e.target);
+                }
             });
+        }
+    }, {
+        key: "validateForm",
+        value: function validateForm(dayData) {
+            var glassesHelp = document.getElementById("glassesHelp");
+            var signsHelp = document.getElementById("signsHelp");
+            var chargeHelp = document.getElementById("chargeHelp");
+
+            glassesHelp.innerText = "";
+            signsHelp.innerText = "";
+            chargeHelp.innerText = "";
+
+            var invalidations = 0;
+
+            if (dayData.glasses.value < 0 || dayData.glasses.value >= 1000) {
+                glassesHelp.innerText = "Come on, let's be reasonable now! Try again.";
+                invalidations++;
+            }
+
+            if (dayData.glasses.value * this.day.costOfLemonade > this.currentAssets) {
+                glassesHelp.innerText = "Think again! You don't have enough cash";
+                invalidations++;
+            }
+
+            if (dayData.signs.value < 0 || dayData.signs.value > 50) {
+                signsHelp.innerText = "Come on, let's be reasonable now! Try again.";
+                invalidations++;
+            }
+
+            if (dayData.signs.value * this.day.costOfSigns + (dayData.glasses.value + this.day.costOfLemonade) > this.currentAssets) {
+                signsHelp.innerText = "Think again! You don't have enough cash.";
+                invalidations++;
+            }
+
+            if (dayData.charge.value < 0 || dayData.charge.value > 100) {
+                chargeHelp.innerText = "Come on, let's be reasonable now! Try again.";
+                invalidations++;
+            }
+
+            if (invalidations === 0) {
+                return true;
+            }
         }
     }, {
         key: "submitDay",
@@ -80,7 +124,7 @@ var Game = function () {
         value: function renderResults() {
             var _this2 = this;
 
-            this.gameBoard.innerHTML = "<img src=\"images/favicon/android-chrome-192x192.png\" alt=\"lemon emoji\"><br><br>\n            <p class=\"title is-2\">\n                Day " + this.day.number + "\n            </p>\n            \n            <p class=\"subtitle is-4\">\n                " + this.day.glassesSold + " glasses sold    \n            </p>\n            \n            <p class=\"subtitle is-4\">\n                $0." + this.day.chargePerGlass + " per glass    \n            </p>\n            \n            <p class=\"subtitle is-4 has-text-right\">\n                Income $" + this.day.glassesSold * this.day.chargePerGlass * .01 + "    \n            </p>\n            \n            <p class=\"subtitle is-4\">\n                " + this.day.glassesMade + " glasses made    \n            </p>\n            \n            <p class=\"subtitle is-4\">\n                " + this.day.signsMade + " signs made    \n            </p>\n            \n            <p class=\"subtitle is-4 has-text-right\">\n                Expenses $." + (this.day.glassesMade * this.day.costOfLemonade + this.day.signsMade * this.day.costOfSigns) + "  \n            </p>\n            \n            <p class=\"subtitle is-4 has-text-centered\">\n                Profit $" + this.day.profits + "    \n            </p>\n            \n            <p class=\"subtitle is-4 has-text-centered\">\n                Assets $" + this.currentAssets + "    \n            </p>\n            \n            <p class=\"subtitle is-4\">\n                Press space to continue, esc to end...\n            </p>";
+            this.gameBoard.innerHTML = "<img src=\"images/favicon/android-chrome-192x192.png\" alt=\"lemon emoji\"><br><br>\n\n            <p class=\"title is-2\">\n                Day " + this.day.number + "\n            </p>\n\n            <p class=\"subtitle is-4\">\n                " + this.day.glassesSold + " glasses sold\n            </p>\n\n            <p class=\"subtitle is-4\">\n                $" + parseFloat(this.day.chargePerGlass * 0.01).toFixed(2) + " charge per glass\n            </p>\n\n            <p class=\"subtitle is-3 has-text-right\">\n                Income: $" + parseFloat(this.day.glassesSold * this.day.chargePerGlass * 0.01).toFixed(2) + "\n            </p>\n\n            <p class=\"subtitle is-4\">\n                " + this.day.glassesMade + " glasses made\n            </p>\n\n            <p class=\"subtitle is-4\">\n                " + this.day.signsMade + " signs made\n            </p>\n\n            <p class=\"subtitle is-3 has-text-right\">\n                Expenses: $" + parseFloat((this.day.glassesMade * this.day.costOfLemonade + this.day.signsMade * this.day.costOfSigns) * 0.01).toFixed(2) + "\n            </p>\n\n            <p class=\"title is-4 has-text-centered\">\n                Profit $" + parseFloat(this.day.profits).toFixed(2) + "    \n            </p>\n            \n            <p class=\"title is-4 has-text-centered\">\n                Assets $" + parseFloat(this.currentAssets).toFixed(2) + "    \n            </p>\n            \n            <p class=\"subtitle is-4\">\n                Press space to continue, esc to end...\n            </p>";
 
             document.addEventListener("keyup", function (e) {
                 if (e.keyCode == 32) {

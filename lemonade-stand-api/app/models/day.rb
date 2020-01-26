@@ -58,19 +58,4 @@ class Day < ApplicationRecord
         self.game.save
     end
 
-
-
-
-        # some glasses validations to consider (L(I)
-        # if glasses made is < 0 or > 1000 then "Come on, Let's be reasonable now! Try again."
-        # if glasses made is not an integer then ""
-        # if glasses * cost < = assets then "Think again!!! You only have assets in cash and to make # glasses you need assets * cost in cash."
-
-        # some signs validations to consider:
-        # if S(I) < 0 or > 50 or not an integer then "Come on, be reasonable!!! Try again"
-        # if signs * signs cost < = assets - lemonade * lemonade cost then "Think again!!!"
-        
-        # some price validations:
-        # if P(I) < 0 or > 100 or not an integer then "Come on, be reasonable!!! Try again"
-
 end

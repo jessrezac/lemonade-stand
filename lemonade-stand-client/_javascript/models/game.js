@@ -87,8 +87,51 @@ class Game {
         let dayForm = document.getElementById("dayForm")
         dayForm.addEventListener("submit", e => {
             event.preventDefault();
-            this.submitDay(e.target);
+            if (this.validateForm(e.target)) {
+                this.submitDay(e.target);
+            }
         });  
+    }
+
+    validateForm(dayData) {
+        let glassesHelp = document.getElementById("glassesHelp");
+        let signsHelp = document.getElementById("signsHelp")
+        let chargeHelp = document.getElementById("chargeHelp")
+
+        glassesHelp.innerText= ""
+        signsHelp.innerText = ""
+        chargeHelp.innerText = ""
+
+        let invalidations = 0
+        
+        if (dayData.glasses.value < 0 || dayData.glasses.value >= 1000) {
+            glassesHelp.innerText = "Come on, let's be reasonable now! Try again."
+            invalidations++
+        }
+        
+        if ((dayData.glasses.value * this.day.costOfLemonade) > this.currentAssets) {
+            glassesHelp.innerText = "Think again! You don't have enough cash"
+            invalidations++;
+        }
+        
+        if (dayData.signs.value < 0 || dayData.signs.value > 50) {
+            signsHelp.innerText =
+                "Come on, let's be reasonable now! Try again.";
+            invalidations++;
+        }
+        
+        if (((dayData.signs.value * this.day.costOfSigns) + (dayData.glasses.value + this.day.costOfLemonade)) > this.currentAssets) {
+            signsHelp.innerText = `Think again! You don't have enough cash.`
+            invalidations++;}
+
+        if (dayData.charge.value < 0 || dayData.charge.value > 100) {
+            chargeHelp.innerText = "Come on, let's be reasonable now! Try again."
+            invalidations++
+        }
+
+        if (invalidations === 0) {
+            return true;
+        }
     }
 
     submitDay(dayData) {
@@ -131,41 +174,42 @@ class Game {
 
     renderResults() {
             this.gameBoard.innerHTML = `<img src="images/favicon/android-chrome-192x192.png" alt="lemon emoji"><br><br>
+
             <p class="title is-2">
                 Day ${this.day.number}
             </p>
-            
+
             <p class="subtitle is-4">
-                ${this.day.glassesSold} glasses sold    
+                ${this.day.glassesSold} glasses sold
             </p>
-            
+
             <p class="subtitle is-4">
-                $0.${this.day.chargePerGlass} per glass    
+                $${parseFloat(this.day.chargePerGlass * 0.01).toFixed(2)} charge per glass
             </p>
-            
-            <p class="subtitle is-4 has-text-right">
-                Income $${(this.day.glassesSold * this.day.chargePerGlass)*.01}    
+
+            <p class="subtitle is-3 has-text-right">
+                Income: $${parseFloat(this.day.glassesSold * this.day.chargePerGlass * 0.01).toFixed(2)}
             </p>
-            
+
             <p class="subtitle is-4">
-                ${this.day.glassesMade} glasses made    
+                ${this.day.glassesMade} glasses made
             </p>
-            
+
             <p class="subtitle is-4">
-                ${this.day.signsMade} signs made    
+                ${this.day.signsMade} signs made
+            </p>
+
+            <p class="subtitle is-3 has-text-right">
+                Expenses: $${parseFloat((this.day.glassesMade * this.day.costOfLemonade +
+                  this.day.signsMade * this.day.costOfSigns) * 0.01).toFixed(2)}
+            </p>
+
+            <p class="title is-4 has-text-centered">
+                Profit $${parseFloat(this.day.profits).toFixed(2)}    
             </p>
             
-            <p class="subtitle is-4 has-text-right">
-                Expenses $.${this.day.glassesMade * this.day.costOfLemonade +
-                  this.day.signsMade * this.day.costOfSigns}  
-            </p>
-            
-            <p class="subtitle is-4 has-text-centered">
-                Profit $${this.day.profits}    
-            </p>
-            
-            <p class="subtitle is-4 has-text-centered">
-                Assets $${this.currentAssets}    
+            <p class="title is-4 has-text-centered">
+                Assets $${parseFloat(this.currentAssets).toFixed(2)}    
             </p>
             
             <p class="subtitle is-4">
@@ -192,9 +236,9 @@ class Game {
                 document.addEventListener("keyup", e => {
                     if (e.keyCode == 13) {
                         if (this.gameId) {
-                            Api.deleteGame(this.gameId);
+                          Api.deleteGame(this.gameId);
                         } else {
-                            window.location.reload()
+                          window.location.reload()
                         }
                     } else if (e.keyCode == 32) {
                         modal.classList.remove("is-active")
