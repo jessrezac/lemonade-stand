@@ -26,11 +26,14 @@ class Game {
                 Press space to continue, esc to end...
             </p>`
 
-            document.addEventListener("keyup", e => {
+            let waitToRenderMore = e => {
                 if (e.keyCode == 32) {
-                    this.renderMoreInstructions
+                    this.renderMoreInstructions;
+                    document.removeEventListener("keyup", waitToRenderMore);
                 }
-            });
+            }
+            
+            document.addEventListener("keyup", waitToRenderMore);
 
     }
 
@@ -55,15 +58,16 @@ class Game {
             <p class="subtitle is-4">
                 Press space to continue, esc to end...
             </p>`;
-            
-        document.addEventListener("keyup", e => {
+
+        let waitToCreateDayOne = e => {
             if (e.keyCode == 32) {
-                if (!this.day) {
-                    this.day = new Day;
-                    this.playDay()
-                }
+                this.day = new Day();
+                this.playDay();
+                document.removeEventListener("keyup", waitToCreateDayOne);
             }
-        });
+        }
+        
+        document.addEventListener("keyup", waitToCreateDayOne);
     }
 
     playDay() {
@@ -218,12 +222,17 @@ class Game {
                 Press space to continue, esc to end...
             </p>`;
 
-            document.addEventListener("keyup", e => {
+            let waitToCreateNextDay = e => {
                 if (e.keyCode == 32) {
-                this.day = new Day(this.currentAssets, ++this.day.number);
-                this.playDay();
+                    console.log("firing waitToCreateNextDay");
+                    this.day = new Day(this.currentAssets, ++this.day.number);
+                    this.playDay();
+                    document.removeEventListener("keyup", waitToCreateNextDay);
                 }
-            });
+            };
+
+            document.addEventListener("keyup", waitToCreateNextDay);
+
     }
 
     addExitListener() {
@@ -238,9 +247,9 @@ class Game {
                 document.addEventListener("keyup", e => {
                     if (e.keyCode == 13) {
                         if (this.gameId) {
-                          Api.deleteGame(this.gameId);
+                            Api.deleteGame(this.gameId);
                         } else {
-                          window.location.reload()
+                            window.location.reload()
                         }
                     } else if (e.keyCode == 32) {
                         modal.classList.remove("is-active")

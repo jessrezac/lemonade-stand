@@ -126,12 +126,16 @@ var Game = function () {
 
             this.gameBoard.innerHTML = "<img src=\"images/favicon/android-chrome-192x192.png\" alt=\"lemon emoji\"><br><br>\n\n            <p class=\"title is-2\">\n                Day " + this.day.number + "\n            </p>\n\n            <p class=\"subtitle is-4\">\n                " + this.day.glassesSold + " glasses sold\n            </p>\n\n            <p class=\"subtitle is-4\">\n                $" + parseFloat(this.day.chargePerGlass * 0.01).toFixed(2) + " charge per glass\n            </p>\n\n            <p class=\"subtitle is-3 has-text-right\">\n                Income: $" + parseFloat(this.day.glassesSold * this.day.chargePerGlass * 0.01).toFixed(2) + "\n            </p>\n\n            <p class=\"subtitle is-4\">\n                " + this.day.glassesMade + " glasses made\n            </p>\n\n            <p class=\"subtitle is-4\">\n                " + this.day.signsMade + " signs made\n            </p>\n\n            <p class=\"subtitle is-3 has-text-right\">\n                Expenses: $" + parseFloat((this.day.glassesMade * this.day.costOfLemonade + this.day.signsMade * this.day.costOfSigns) * 0.01).toFixed(2) + "\n            </p>\n\n            <p class=\"title is-4 has-text-centered\">\n                Profit $" + parseFloat(this.day.profits).toFixed(2) + "    \n            </p>\n            \n            <p class=\"title is-4 has-text-centered\">\n                Assets $" + parseFloat(this.currentAssets).toFixed(2) + "    \n            </p>\n            \n            <p class=\"subtitle is-4\">\n                Press space to continue, esc to end...\n            </p>";
 
-            document.addEventListener("keyup", function (e) {
+            var waitToCreateNextDay = function waitToCreateNextDay(e) {
                 if (e.keyCode == 32) {
+                    console.log("firing waitToCreateNextDay");
                     _this2.day = new Day(_this2.currentAssets, ++_this2.day.number);
                     _this2.playDay();
+                    document.removeEventListener("keyup", waitToCreateNextDay);
                 }
-            });
+            };
+
+            document.addEventListener("keyup", waitToCreateNextDay);
         }
     }, {
         key: "addExitListener",
@@ -167,11 +171,14 @@ var Game = function () {
 
             this.gameBoard.innerHTML = "<img src=\"images/favicon/android-chrome-192x192.png\" alt=\"lemon emoji\"><br><br>\n            <p class=\"subtitle is-4\">\n                To manage your lemonade stand, you will need to make these decisions every day:\n            </p>\n            \n            <div class=\"content\"><ol class=\"subtitle is-4\">\n                <li>How many glasses of lemonade to make (only one batch is made in the morning)</li>\n                <li>How many advertising signs to make (the signs cost fifteen cents each)</li>\n                <li>What price to charge for each glass</li>\n            </ol></div>\n\n            <p class=\"subtitle is-4\">\n                You will begin with $2.00 cash (assets). Because your mother gave you some sugar, your cost to make lemonade is two cents a glass. This may change in the future.\n            </p>\n            \n            <p class=\"subtitle is-4\">\n                Press space to continue, esc to end...\n            </p>";
 
-            document.addEventListener("keyup", function (e) {
+            var waitToRenderMore = function waitToRenderMore(e) {
                 if (e.keyCode == 32) {
                     _this4.renderMoreInstructions;
+                    document.removeEventListener("keyup", waitToRenderMore);
                 }
-            });
+            };
+
+            document.addEventListener("keyup", waitToRenderMore);
         }
     }, {
         key: "renderMoreInstructions",
@@ -180,14 +187,15 @@ var Game = function () {
 
             this.gameBoard.innerHTML = "<img src=\"images/favicon/android-chrome-192x192.png\" alt=\"lemon emoji\"><br><br>\n            <p class=\"subtitle is-4\">\n                Your expenses are the sum of the cost of the lemonade and the cost of the signs.\n            </p>\n            \n            <p class=\"subtitle is-4\">\n                Your profits are the difference between the income from sales and your expenses.\n            </p>\n            \n            <p class=\"subtitle is-4\">\n                The number of glasses you sell each day depends on the price you charge, and on the number of advertising signs you use.\n            </p>\n            \n            <p class=\"subtitle is-4\">\n                Keep track of your assets, because you can't spend more money than you have!\n            </p>\n            \n            <p class=\"subtitle is-4\">\n                Press space to continue, esc to end...\n            </p>";
 
-            document.addEventListener("keyup", function (e) {
+            var waitToCreateDayOne = function waitToCreateDayOne(e) {
                 if (e.keyCode == 32) {
-                    if (!_this5.day) {
-                        _this5.day = new Day();
-                        _this5.playDay();
-                    }
+                    _this5.day = new Day();
+                    _this5.playDay();
+                    document.removeEventListener("keyup", waitToCreateDayOne);
                 }
-            });
+            };
+
+            document.addEventListener("keyup", waitToCreateDayOne);
         }
     }]);
 
