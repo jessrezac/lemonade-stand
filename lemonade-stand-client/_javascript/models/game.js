@@ -26,11 +26,14 @@ class Game {
                 Press space to continue, esc to end...
             </p>`
 
-            document.addEventListener("keyup", e => {
+            let waitToRenderMore = e => {
                 if (e.keyCode == 32) {
-                    this.renderMoreInstructions
+                    this.renderMoreInstructions;
+                    document.removeEventListener("keyup", waitToRenderMore);
                 }
-            });
+            }
+            
+            document.addEventListener("keyup", waitToRenderMore);
 
     }
 
@@ -55,15 +58,16 @@ class Game {
             <p class="subtitle is-4">
                 Press space to continue, esc to end...
             </p>`;
-            
-        document.addEventListener("keyup", e => {
+
+        let waitToCreateDayOne = e => {
             if (e.keyCode == 32) {
-                if (!this.day) {
-                    this.day = new Day;
-                    this.playDay()
-                }
+                this.day = new Day();
+                this.playDay();
+                document.removeEventListener("keyup", waitToCreateDayOne);
             }
-        });
+        }
+        
+        document.addEventListener("keyup", waitToCreateDayOne);
     }
 
     playDay() {
@@ -122,7 +126,7 @@ class Game {
             invalidations++;
         }
         
-        if (((dayData.signs.value * this.day.costOfSigns * 0.01) + (dayData.glasses.value + this.day.costOfLemonade * 0.01)) > this.currentAssets) {
+        if (((dayData.signs.value * this.day.costOfSigns * 0.01) + (dayData.glasses.value * this.day.costOfLemonade * 0.01)) > this.currentAssets) {
             signsHelp.innerText = `Think again! You don't have enough cash.`
             invalidations++;}
 
@@ -163,6 +167,7 @@ class Game {
         this.gameId = results.data.id
         let attributes = results.data.attributes
         this.currentAssets = attributes.current_assets
+        this.complete = attributes.complete
         let days = results.data.attributes.days
         let dayAttributes = days[days.length - 1]
         this.day.glassesMade = dayAttributes.glasses_made
@@ -218,12 +223,47 @@ class Game {
                 Press space to continue, esc to end...
             </p>`;
 
-            document.addEventListener("keyup", e => {
+            let waitToCreateNextDay = e => {
                 if (e.keyCode == 32) {
-                this.day = new Day(this.currentAssets, ++this.day.number);
-                this.playDay();
+                    if (this.complete) {
+                        this.endGame
+                    } else {
+                        this.day = new Day(
+                            this.currentAssets,
+                            ++this.day.number
+                        );
+                        this.playDay();
+
+                    }
+                    document.removeEventListener("keyup", waitToCreateNextDay);
                 }
-            });
+            };
+
+            document.addEventListener("keyup", waitToCreateNextDay);
+
+    }
+
+    get endGame() {
+
+        if (this.currentAssets > 0) {
+            this.gameBoard.innerHTML = `<img src="images/favicon/android-chrome-192x192.png" alt="lemon emoji"><br><br>
+                <p class="title is-4">
+                Congratulations! Your total profits are ${this.currentAssets}!
+                </p>
+
+                <p class="subtitle is-4">
+                Press esc to exit...
+                </p>`;
+            } else {
+                this.gameBoard.innerHTML = `<img src="images/favicon/android-chrome-192x192.png" alt="lemon emoji"><br><br>
+                <p class="title is-2">
+                    Oh no! You're bankrupt!
+                </p>
+
+                <p class="subtitle is-4">
+                    Press esc to exit...
+                </p>`;
+            };
     }
 
     addExitListener() {
@@ -238,9 +278,9 @@ class Game {
                 document.addEventListener("keyup", e => {
                     if (e.keyCode == 13) {
                         if (this.gameId) {
-                          Api.deleteGame(this.gameId);
+                            Api.deleteGame(this.gameId);
                         } else {
-                          window.location.reload()
+                            window.location.reload()
                         }
                     } else if (e.keyCode == 32) {
                         modal.classList.remove("is-active")

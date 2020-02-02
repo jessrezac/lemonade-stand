@@ -17,7 +17,7 @@ class Day < ApplicationRecord
 
         # set signs multiplier (v)
         w = -self.signs_made * 0.5
-        signs_multiplier = 1 - Math.exp(w)   # v = 1 - (exp(w) * 1)  // EXP is inverse natural log of the argument
+        signs_multiplier = 1 - Math.exp(w)   # v = 1 - (exp(w) * 1)  //
 
         # set random event multiplier (r)
         case self.weather
@@ -25,7 +25,7 @@ class Day < ApplicationRecord
             # J = 30 + INT (RND(1) * 5) * 10 // that's the chance of rain
             # if it is rainy, R1 becomes 1 - J / 100
 
-            chance_of_rain = 30 + (rand(1) * 5).floor * 10
+            chance_of_rain = 30 + (rand * 5).floor * 10
             random_event_multiplier = 1 - chance_of_rain/100
         when "hot and sunny"
             random_event_multiplier = 2
@@ -56,6 +56,10 @@ class Day < ApplicationRecord
         self.save
         self.game.current_assets += self.profits
         self.game.save
+        if self.game.current_assets == 0 || self.number == 30
+            self.game.complete = true
+            self.game.save
+        end
     end
 
 end
