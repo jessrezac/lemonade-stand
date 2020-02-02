@@ -128,7 +128,6 @@ var Game = function () {
 
             var waitToCreateNextDay = function waitToCreateNextDay(e) {
                 if (e.keyCode == 32) {
-                    console.log("firing waitToCreateNextDay");
                     _this2.day = new Day(_this2.currentAssets, ++_this2.day.number);
                     _this2.playDay();
                     document.removeEventListener("keyup", waitToCreateNextDay);

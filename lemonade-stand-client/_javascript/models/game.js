@@ -224,7 +224,6 @@ class Game {
 
             let waitToCreateNextDay = e => {
                 if (e.keyCode == 32) {
-                    console.log("firing waitToCreateNextDay");
                     this.day = new Day(this.currentAssets, ++this.day.number);
                     this.playDay();
                     document.removeEventListener("keyup", waitToCreateNextDay);
