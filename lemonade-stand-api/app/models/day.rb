@@ -55,6 +55,9 @@ class Day < ApplicationRecord
         self.calculate_profits
         self.save
         self.game.current_assets += self.profits
+        if self.game.current_assets == 0 || self.number == 30
+            self.game.complete = true
+        end
         self.game.save
     end
 
