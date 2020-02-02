@@ -66,7 +66,7 @@ var Game = function () {
                 invalidations++;
             }
 
-            if (dayData.signs.value * this.day.costOfSigns * 0.01 + (dayData.glasses.value + this.day.costOfLemonade * 0.01) > this.currentAssets) {
+            if (dayData.signs.value * this.day.costOfSigns * 0.01 + dayData.glasses.value * this.day.costOfLemonade * 0.01 > this.currentAssets) {
                 signsHelp.innerText = "Think again! You don't have enough cash.";
                 invalidations++;
             }
@@ -109,6 +109,7 @@ var Game = function () {
             this.gameId = results.data.id;
             var attributes = results.data.attributes;
             this.currentAssets = attributes.current_assets;
+            this.complete = attributes.complete;
             var days = results.data.attributes.days;
             var dayAttributes = days[days.length - 1];
             this.day.glassesMade = dayAttributes.glasses_made;
@@ -128,8 +129,12 @@ var Game = function () {
 
             var waitToCreateNextDay = function waitToCreateNextDay(e) {
                 if (e.keyCode == 32) {
-                    _this2.day = new Day(_this2.currentAssets, ++_this2.day.number);
-                    _this2.playDay();
+                    if (_this2.complete) {
+                        _this2.endGame;
+                    } else {
+                        _this2.day = new Day(_this2.currentAssets, ++_this2.day.number);
+                        _this2.playDay();
+                    }
                     document.removeEventListener("keyup", waitToCreateNextDay);
                 }
             };
@@ -195,6 +200,16 @@ var Game = function () {
             };
 
             document.addEventListener("keyup", waitToCreateDayOne);
+        }
+    }, {
+        key: "endGame",
+        get: function get() {
+
+            if (this.currentAssets > 0) {
+                this.gameBoard.innerHTML = "<img src=\"images/favicon/android-chrome-192x192.png\" alt=\"lemon emoji\"><br><br>\n                <p class=\"title is-4\">\n                Congratulations! Your total profits are " + this.currentAssets + "!\n                </p>\n\n                <p class=\"subtitle is-4\">\n                Press esc to exit...\n                </p>";
+            } else {
+                this.gameBoard.innerHTML = "<img src=\"images/favicon/android-chrome-192x192.png\" alt=\"lemon emoji\"><br><br>\n                <p class=\"title is-2\">\n                    Oh no! You're bankrupt!\n                </p>\n\n                <p class=\"subtitle is-4\">\n                    Press esc to exit...\n                </p>";
+            };
         }
     }]);
 
